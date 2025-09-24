@@ -1,0 +1,33 @@
+[project]
+name = "computer-vision"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "jupyter>=1.1.1",
+    "jupyter-server>=2.16.0",
+    "jupyterlab-lsp>=5.2.0",
+    "jupyterlab-vim>=4.1.4",
+    "matplotlib>=3.10.3",
+    "numpy>=2.3.2",
+    "opencv-python>=4.11.0.86",
+    "pandas>=2.3.1",
+    "pytorch-triton-rocm>=3.4.0",
+    "scikit-learn>=1.7.2",
+    "timm>=1.0.20",
+    "torch>=2.8.0",
+    "torchinfo>=1.8.0",
+    "torchvision>=0.23.0",
+    "tqdm>=4.67.1",
+]
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-rocm" }]
+torchvision = [{ index = "pytorch-rocm" }]
+pytorch-triton-rocm = [{ index = "pytorch-rocm" }]
+
+[[tool.uv.index]]
+name = "pytorch-rocm"
+url = "https://download.pytorch.org/whl/rocm6.3"
+explicit = true
