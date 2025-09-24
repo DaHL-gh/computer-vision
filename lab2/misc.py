@@ -20,7 +20,7 @@ def train_step(
 
     model.to(device).train()
 
-    for batch, (X, y) in enumerate(dataloader):
+    for X, y in tqdm(dataloader, desc="Train batches", leave=False):
         X, y = X.to(device), y.to(device)
 
         y_pred = model(X)
@@ -52,7 +52,7 @@ def test_step(
     model.eval()
 
     with torch.inference_mode():
-        for X, y in dataloader:
+        for X, y in tqdm(dataloader, desc="Test batches", leave=False):
             X, y = X.to(device), y.to(device)
 
             y_pred = model(X)
@@ -80,7 +80,7 @@ def train_model(
         "test": {"loss": [], "acc": []},
     }
 
-    for epoch in tqdm(range(epochs)):
+    for epoch in tqdm(range(epochs), desc="epochs"):
         # TRAIN
         res = train_step(model, train_dataloader, loss_fn, optim, device)
 
@@ -92,5 +92,19 @@ def train_model(
 
         for name, num in res.items():
             results["test"][name].append(num)
+
+    return results
+
+def predict(
+    model: nn.Module,
+    contest_dataloader: DataLoader,
+    device: torch.device,
+) -> list[tuple[object]]:
+    model.eval()
+    results = []
+    with torch.no_grad():
+        for images, file_names in tqdm(contest_dataloader, desc="Predicting"):
+            preds = model(images.to(device)).argmax(dim=1)
+            results.extend(zip(file_names, preds.cpu().numpy()))
 
     return results
