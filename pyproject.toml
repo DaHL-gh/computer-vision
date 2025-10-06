@@ -13,21 +13,51 @@ dependencies = [
     "numpy>=2.3.2",
     "opencv-python>=4.11.0.86",
     "pandas>=2.3.1",
-    "pytorch-triton-rocm>=3.4.0",
     "scikit-learn>=1.7.2",
     "timm>=1.0.20",
-    "torch>=2.8.0",
-    "torchinfo>=1.8.0",
-    "torchvision>=0.23.0",
     "tqdm>=4.67.1",
 ]
 
+[project.optional-dependencies]
+cpu = [
+    "torch>=2.8.0",
+    "torchinfo>=1.8.0",
+    "torchvision>=0.23.0",
+]
+amd = [
+    "torch>=2.8.0",
+    "pytorch-triton-rocm>=3.4.0",
+    "torchinfo>=1.8.0",
+    "torchvision>=0.23.0",
+]
+
+[tool.uv]
+conflicts = [
+    [
+      { extra = "cpu" },
+      { extra = "amd" },
+    ],
+]
+
 [tool.uv.sources]
-torch = [{ index = "pytorch-rocm" }]
-torchvision = [{ index = "pytorch-rocm" }]
-pytorch-triton-rocm = [{ index = "pytorch-rocm" }]
+torch = [
+    { index = "pytorch-rocm", extra="amd" },
+    { index = "pytorch-cpu", extra="cpu" }
+]
+torchvision = [
+    { index = "pytorch-rocm", extra="amd" },
+    { index = "pytorch-cpu", extra="cpu" }
+]
+pytorch-triton-rocm = [
+    { index = "pytorch-rocm", extra="amd" },
+]
 
 [[tool.uv.index]]
 name = "pytorch-rocm"
 url = "https://download.pytorch.org/whl/rocm6.3"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
 explicit = true
