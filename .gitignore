@@ -1,6 +1,12 @@
-.virtual_documents
-lab1/.ipynb_checkpoints
 lab1/ContestDataset
-lab2/.ipynb_checkpoints
-lab2/__pycache__
 lab2/animal
+lab3/cv-3-segmentation
+
+.direnv
+.venv
+
+*.pt
+
+__pycache__/
+.virtual_documents/
+.ipynb_checkpoints/

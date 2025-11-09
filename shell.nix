@@ -17,6 +17,9 @@ pkgs.mkShell {
 		LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath (with pkgs; [
 			stdenv.cc.cc.lib
 			zstd
+
+			glib
+			libGL
 		]);
 	};
 
