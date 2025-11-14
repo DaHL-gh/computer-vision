@@ -10,3 +10,9 @@ lab3/cv-3-segmentation
 __pycache__/
 .virtual_documents/
 .ipynb_checkpoints/
+lab4/cv-4-objectdetection/craters
+runs/detect
+gpucore*
+*.zip
+
+!lab4/bestS.pt

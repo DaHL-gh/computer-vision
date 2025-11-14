@@ -17,6 +17,7 @@ dependencies = [
     "segmentation-models-pytorch>=0.5.0",
     "timm>=1.0.20",
     "tqdm>=4.67.1",
+    "ultralytics>=8.3.228",
 ]
 
 [project.optional-dependencies]
